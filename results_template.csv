@@ -1,4 +1,0 @@
-run_name,gpus,per_gpu_batch,global_batch,avg_epoch_time_sec,total_train_time_sec,best_test_acc,avg_comm_fraction,speedup,efficiency_percent,accuracy_gap
-resnet18_1gpu_bs128,1,128,128,,,,,,
-resnet18_2gpu_bs128,2,128,256,,,,,,
-resnet18_2gpu_bs256,2,256,512,,,,,,
