@@ -1,30 +1,26 @@
 """
-Kaggle-ready CIFAR-10 training with optional single-node multi-GPU DDP.
+ML System Optimization - Group 82 Assignment
+Project: Parallelized Training of CIFAR-10 using ResNet-18
+Framework: PyTorch DistributedDataParallel (DDP) with NCCL Backend
 
-This script is intentionally written as an assignment-grade reference
-implementation: the logic is simple, reproducible, and heavily commented so a
-reviewer can see how the system is initialized, how data is partitioned across
-workers, and how performance measurements are collected.
+Team Details:
+- 2025AE05975 - Bala Gangadhara Tilak
+- 2025AE05815 - GOHIL KUNAL DEEPAK VANITA
+- 2025AE05780 - LAAVAAN J
 
-Usage examples
---------------
-1 GPU baseline:
-    CUDA_VISIBLE_DEVICES=0 python train_ddp_kaggle.py \
-        --data-dir /kaggle/working/data \
-        --output-dir /kaggle/working/outputs \
-        --epochs 30 \
-        --batch-size 128 \
-        --amp \
-        --run-name resnet18_1gpu_bs128
+Implementation Highlights:
+- Model: ResNet-18 with CIFAR-specific stem adaptation (stride=1, no maxpool).
+- Optimization: Automatic Mixed Precision (AMP) for increased throughput.
+- Measurement: Collects synchronization-dominated proxy time for Communication Cost analysis.
+- Platform: Optimized for Kaggle Single-Node Multi-GPU (2x Tesla T4).
 
-2 GPU DDP:
-    torchrun --standalone --nproc_per_node=2 train_ddp_kaggle.py \
-        --data-dir /kaggle/working/data \
-        --output-dir /kaggle/working/outputs \
-        --epochs 30 \
-        --batch-size 128 \
-        --amp \
-        --run-name resnet18_2gpu_bs128
+Usage:
+------
+1 GPU Baseline (T1):
+    CUDA_VISIBLE_DEVICES=0 python train_ddp_kaggle.py --data-dir ./data --epochs 30 --batch-size 128 --amp --run-name resnet18_1gpu
+
+2 GPU DDP (T2):
+    torchrun --standalone --nproc_per_node=2 train_ddp_kaggle.py --data-dir ./data --epochs 30 --batch-size 128 --amp --run-name resnet18_2gpu
 """
 
 import argparse
